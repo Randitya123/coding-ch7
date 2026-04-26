@@ -24,15 +24,16 @@ data.drop('SibSp', axis = 1, inplace = True)
 data.drop('Parch', axis = 1, inplace = True)
 print(data.head())
 
-X = data[["Pclass", "Sex", "Age", "Fare", "Embarked", "TravelAlone"]]
+
 from sklearn import preprocessing
 label_encoder=preprocessing.LabelEncoder()
 data["Sex"]=label_encoder.fit_transform(data["Sex"])
 data["Embarked"] =label_encoder.fit_transform(data["Embarked"])
+data.fillna(data.median(numeric_only=True),inplace=True)
 print(data.head())
 
 
-
+X = data[["Pclass", "Sex", "Age", "Fare", "Embarked", "TravelAlone"]]
 Y = data["Survived"]
 from sklearn. model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state = 2)
